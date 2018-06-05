@@ -115,6 +115,7 @@ class PantryTest < Minitest::Test
 
   def test_what_can_i_make
     expected = ["Pickles", "Peanuts"]
+    binding.pry
     assert_equal expected, @pantry.what_can_i_make
   end
 

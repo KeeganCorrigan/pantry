@@ -41,12 +41,12 @@ class Pantry
   def what_can_i_make
     @cookbook.each_with_object([]) do |(food, ingredients), collector|
       if (ingredients.keys - @stock.keys).empty?
-        binding.pry
-        ingredients.each do |ingredient, quantity|
-          collector << food if quantity < @stock[ingredient]
+        if ingredients.map do |ingredient, quantity|
+          @stock[ingredient] - quantity
+        end.all?(&:positive?)
+          collector << food
         end
       end
-      collector
     end
   end
 end
