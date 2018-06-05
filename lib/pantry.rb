@@ -2,11 +2,13 @@ require 'pry'
 
 class Pantry
   attr_reader :stock,
-              :shopping_list
+              :shopping_list,
+              :cookbook
 
   def initialize
     @stock = {}
     @shopping_list = {}
+    @cookbook = {}
   end
 
   def stock_check(food)
@@ -30,5 +32,9 @@ class Pantry
     @shopping_list.inject('') do |list, (food, quantity)|
         list << "* #{food}:" + " #{quantity}\n"
     end.chomp
+  end
+
+  def add_to_cookbook(recipe)
+    @cookbook[recipe.name] = recipe.ingredients
   end
 end
