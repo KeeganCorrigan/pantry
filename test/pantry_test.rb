@@ -10,7 +10,8 @@ class PantryTest < Minitest::Test
 
   def test_stock_is_empty_hash
     pantry = Pantry.new
-    assert_equal {}, pantry.stock
+    assert_equal Hash, pantry.stock.class
+    assert_equal 0, pantry.stock.length
   end
 
   def test_it_checks_stock

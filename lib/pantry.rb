@@ -1,23 +1,17 @@
 class Pantry
+  attr_reader :stock
 
+  def initialize
+    @stock = {}
+  end
+
+  def stock_check(food)
+    return 0 if @stock[food].nil?
+    @stock[food]
+  end
+
+  def restock(food, quantity)
+    @stock[food] += quantity if @stock.include?(food)
+    @stock[food] = quantity if !@stock.include?(food)
+  end
 end
-
-# ```ruby
-# pantry = Pantry.new
-# # => <Pantry...>
-#
-# # Checking and adding stock
-# pantry.stock
-# # => {}
-#
-# pantry.stock_check("Cheese")
-# # => 0
-#
-# pantry.restock("Cheese", 10)
-# pantry.stock_check("Cheese")
-# # => 10
-#
-# pantry.restock("Cheese", 20)
-# pantry.stock_check("Cheese")
-# # => 30
-# ```
