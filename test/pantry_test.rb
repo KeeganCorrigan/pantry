@@ -5,6 +5,28 @@ require './lib/recipe'
 require 'pry'
 
 class PantryTest < Minitest::Test
+  def setup
+    recipe_1 = Recipe.new("Cheese Pizza")
+    recipe_1.add_ingredient("Cheese", 20)
+    recipe_1.add_ingredient("Flour", 20)
+    recipe_2 = Recipe.new("Pickles")
+    recipe_2.add_ingredient("Brine", 10)
+    recipe_2.add_ingredient("Cucumbers", 30)
+    recipe_3 = Recipe.new("Peanuts")
+    recipe_3.add_ingredient("Raw nuts", 10)
+    recipe_3.add_ingredient("Salt", 10)
+    @pantry = Pantry.new
+    @pantry.add_to_cookbook(recipe_1)
+    @pantry.add_to_cookbook(recipe_2)
+    @pantry.add_to_cookbook(recipe_3)
+    @pantry.restock("Cheese", 10)
+    @pantry.restock("Flour", 20)
+    @pantry.restock("Brine", 40)
+    @pantry.restock("Cucumbers", 120)
+    @pantry.restock("Raw nuts", 20)
+    @pantry.restock("Salt", 20)
+  end
+
   def test_it_exists
     pantry = Pantry.new
     assert_instance_of(Pantry, pantry)
@@ -92,7 +114,8 @@ class PantryTest < Minitest::Test
   end
 
   def test_what_can_i_make
-    
+    expected = ["Pickles", "Peanuts"]
+    assert_equal expected, @pantry.what_can_i_make
   end
 
   def test_how_many_can_i_make

@@ -37,4 +37,16 @@ class Pantry
   def add_to_cookbook(recipe)
     @cookbook[recipe.name] = recipe.ingredients
   end
+
+  def what_can_i_make
+    @cookbook.each_with_object([]) do |(food, ingredients), collector|
+      if (ingredients.keys - @stock.keys).empty?
+        binding.pry
+        ingredients.each do |ingredient, quantity|
+          collector << food if quantity < @stock[ingredient]
+        end
+      end
+      collector
+    end
+  end
 end
