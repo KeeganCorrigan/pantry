@@ -49,4 +49,14 @@ class Pantry
       end
     end
   end
+
+  def how_many_can_i_make
+    what_can_i_make.inject({}) do |collector, makeable|
+      makeable_amount = @cookbook[makeable].map do |ingredient, quantity|
+        @stock[ingredient] / quantity
+      end.min
+      collector[makeable] = makeable_amount
+      collector
+    end
+  end
 end

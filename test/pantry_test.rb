@@ -115,11 +115,11 @@ class PantryTest < Minitest::Test
 
   def test_what_can_i_make
     expected = ["Pickles", "Peanuts"]
-    binding.pry
     assert_equal expected, @pantry.what_can_i_make
   end
 
   def test_how_many_can_i_make
-    skip
+    expected = {"Pickles" => 4, "Peanuts" => 2}
+    assert_equal expected, @pantry.how_many_can_i_make
   end
 end
