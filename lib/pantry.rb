@@ -1,4 +1,4 @@
-require 'pry'
+# frozen_string_literal: true
 
 class Pantry
   attr_reader :stock,
@@ -18,19 +18,19 @@ class Pantry
 
   def restock(food, quantity)
     @stock[food] += quantity if @stock.include?(food)
-    @stock[food] = quantity if !@stock.include?(food)
+    @stock[food] = quantity unless @stock.include?(food)
   end
 
   def add_to_shopping_list(recipe)
     recipe.ingredients.each do |food, quantity|
       @shopping_list[food] += quantity if @shopping_list.include?(food)
-      @shopping_list[food] = quantity if !@shopping_list.include?(food)
+      @shopping_list[food] = quantity unless @shopping_list.include?(food)
     end
   end
 
   def print_shopping_list
     @shopping_list.inject('') do |list, (food, quantity)|
-        list << "* #{food}:" + " #{quantity}\n"
+      list << "* #{food}:" + " #{quantity}\n"
     end.chomp
   end
 
@@ -51,7 +51,7 @@ class Pantry
   end
 
   def how_many_can_i_make
-    what_can_i_make.inject({}) do |collector, makeable|
+    what_can_i_make.each_with_object({}) do |makeable, collector|
       makeable_amount = @cookbook[makeable].map do |ingredient, quantity|
         @stock[ingredient] / quantity
       end.min
